@@ -1,6 +1,6 @@
 name: autonity
 version: 0.0.1
-kubeVersion: ">=1.11.0"
+kubeVersion: ">=1.11.8-0"
 description: private Autonity network Helm chart for Kubernetes
 keywords:
 - autonity
@@ -11,3 +11,4 @@ sources:
 maintainers:
 - name: eastata
   email: aleksandr.poliakov@clearmatics.com
+appVersion: 1.8.20
