@@ -13,7 +13,7 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 1. *NFS-server* as a persistent storage
 1. *initial jobs* that implement bootstrapping algorithm
 1. *validators*: nodes that implement [IBFT consensus algorithms](https://docs.autonity.io/IBFT/index.html)
-1. *observer*: node that connected with another validators by 2p2 and expose JSON-RPC and WebSocket interface
+1. *observer*: node that connected with another validators by p2p and expose JSON-RPC and WebSocket interface
 1. *ethstats*: [Ethereum Network Stats](https://github.com/cubedro/eth-netstats)
 
 ## Prerequisites
