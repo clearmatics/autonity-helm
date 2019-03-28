@@ -2,3 +2,9 @@
 imageAutonity:
   repository: clearmatics/autonity
   tag: latest
+
+image_ibft_keys_generator:
+  repository: clearmatics/ibft-keys-generator
+  tag: v0.0.1
+
+account_pwd: changeme
