@@ -13,7 +13,7 @@ rules:
 - apiGroups: [""]
   resources: ["secrets"]
   resourceNames: ["account-pwd"]
-  verbs: ["update"]
+  verbs: ["patch"]
 
 ---
 kind: ClusterRoleBinding
