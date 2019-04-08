@@ -8,3 +8,6 @@ To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
   $ helm get {{ .Release.Name }}
+
+To get autonity validators account password type:
+kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "{{" }}index .data "account.pwd"{{ "}}" }}'
