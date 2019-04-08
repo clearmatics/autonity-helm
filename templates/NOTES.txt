@@ -10,4 +10,4 @@ To learn more about the release, try:
   $ helm get {{ .Release.Name }}
 
 To get autonity validators account password type:
-kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "{{" }}index .data "account.pwd"{{ "}}" }}'
+kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "{{" }}index .data "account.pwd"{{ "}}" }}' | base64 --decode; echo ""
