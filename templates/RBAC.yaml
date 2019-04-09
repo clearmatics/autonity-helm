@@ -12,7 +12,7 @@ metadata:
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
-  resourceNames: ["account-pwd"]
+  resourceNames: ["account-pwd", "validators", "observers"]
   verbs: ["patch"]
 
 ---
@@ -28,4 +28,3 @@ subjects:
 - kind: ServiceAccount
   name: autonity-initiator
   namespace: {{ .Release.Namespace }}
-

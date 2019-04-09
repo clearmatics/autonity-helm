@@ -2,3 +2,6 @@
 
 To get autonity validators account password type:
 kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "{{" }}index .data "account.pwd"{{ "}}" }}' | base64 --decode; echo ""
+
+Get private key of first observer (id == 0)
+kubectl -n {{ .Release.Namespace }} get secrets observers -o 'go-template={{ "{{" }}index .data "0"{{ "}}" }}' | base64 --decode; echo ""
