@@ -14,6 +14,10 @@ rules:
   resources: ["secrets"]
   resourceNames: ["account-pwd", "validators", "observers"]
   verbs: ["patch"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  resourceNames: ["validators", "observers"]
+  verbs: ["patch"]
 
 ---
 kind: ClusterRoleBinding
