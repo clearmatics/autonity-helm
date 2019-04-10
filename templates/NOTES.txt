@@ -5,3 +5,6 @@ kubectl -n {{ .Release.Namespace }} get secrets account-pwd -o 'go-template={{ "
 
 Get private key of first observer (id == 0)
 kubectl -n {{ .Release.Namespace }} get secrets observers -o 'go-template={{ "{{" }}index .data "0.private_key"{{ "}}" }}' | base64 --decode; echo ""
+
+Get list of addresses for each validator
+kubectl -n {{ .Release.Namespace }} get configmap validators -o yaml |grep .address

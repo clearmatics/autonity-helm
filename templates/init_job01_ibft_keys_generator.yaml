@@ -26,6 +26,10 @@ spec:
       containers:
       - name: init-job01-ibft-keys-generator
         image: {{ .Values.image_ibft_keys_generator.repository }}:{{ .Values.image_ibft_keys_generator.tag }}
-        imagePullPolicy: Always
+        args:
+          - "--validators"
+          - "{{ .Values.validators }}"
+          - "--observers"
+          - "{{ .Values.observers }}"
       restartPolicy: Never
   backoffLimit: 1
