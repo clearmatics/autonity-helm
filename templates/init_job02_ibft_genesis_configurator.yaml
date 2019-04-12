@@ -11,7 +11,7 @@ metadata:
   annotations:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "2"
-    "helm.sh/hook-delete-policy": hook-succeeded
+    # "helm.sh/hook-delete-policy": hook-succeeded
 spec:
   template:
     metadata:
@@ -22,12 +22,33 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
-      serviceAccountName: autonity-initiator
+      # serviceAccountName: autonity-initiator
+      restartPolicy: Never
       containers:
       - name: init-job02-ibft-genesis-configurator
         image: {{ .Values.image_ibft_genesis_configurator.repository }}:{{ .Values.image_ibft_genesis_configurator.tag }}
         args:
           - "-c"
-          - "ls"
-      restartPolicy: Never
+          - "ls /autonity"
+        volumeMounts:
+          - name: validators
+            mountPath: /autonity/validators
+          - name: observers
+            mountPath: /autonity/observers
+          - name: genesis-template
+            mountPath: /autonity
+      volumes:
+        - name: validators
+          configMap:
+            name: validators
+        - name: observers
+          configMap:
+            name: observers
+        - name: genesis-template
+          configMap:
+            name: genesis-template
+            items:
+              - key: genesis.json
+                path: genesis-template.json
+
   backoffLimit: 0
