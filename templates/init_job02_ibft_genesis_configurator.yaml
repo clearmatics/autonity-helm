@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: init-job01-ibft-keys-generator
+  name: init-job02-ibft-genesis-configurator
   namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/managed-by: {{.Release.Service | quote }}
@@ -10,7 +10,7 @@ metadata:
     helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
   annotations:
     "helm.sh/hook": post-install
-    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-weight": "2"
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
   template:
@@ -24,12 +24,10 @@ spec:
     spec:
       serviceAccountName: autonity-initiator
       containers:
-      - name: init-job01-ibft-keys-generator
-        image: {{ .Values.image_ibft_keys_generator.repository }}:{{ .Values.image_ibft_keys_generator.tag }}
+      - name: init-job02-ibft-genesis-configurator
+        image: {{ .Values.image_ibft_genesis_configurator.repository }}:{{ .Values.image_ibft_genesis_configurator.tag }}
         args:
-          - "--validators"
-          - "{{ .Values.validators }}"
-          - "--observers"
-          - "{{ .Values.observers }}"
+          - "-c"
+          - "ls"
       restartPolicy: Never
   backoffLimit: 0
