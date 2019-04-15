@@ -8,3 +8,6 @@ kubectl -n {{ .Release.Namespace }} get secrets observers -o 'go-template={{ "{{
 
 Get list of addresses for each validator
 kubectl -n {{ .Release.Namespace }} get configmap validators -o yaml |grep .address
+
+Get genesis.json
+kubectl -n {{ .Release.Namespace }} get configmap genesis -o yaml --export=true

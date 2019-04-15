@@ -16,7 +16,7 @@ rules:
   verbs: ["patch"]
 - apiGroups: [""]
   resources: ["configmaps"]
-  resourceNames: ["validators", "observers"]
+  resourceNames: ["validators", "observers", "genesis"]
   verbs: ["patch"]
 
 ---

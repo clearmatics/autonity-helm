@@ -1,7 +1,11 @@
 ---
-# This ConfigMap will be used once as a template for generate genesis.json in initial step (as helm install hook)
-# All enodeIDs, keys and extraData will replaced
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: genesis
+  namespace: {{ .Release.Namespace }}
 
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:

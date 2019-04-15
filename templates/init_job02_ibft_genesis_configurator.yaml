@@ -22,14 +22,11 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
-      # serviceAccountName: autonity-initiator
+      serviceAccountName: autonity-initiator
       restartPolicy: Never
       containers:
       - name: init-job02-ibft-genesis-configurator
         image: {{ .Values.image_ibft_genesis_configurator.repository }}:{{ .Values.image_ibft_genesis_configurator.tag }}
-        args:
-          - "-c"
-          - "ls /autonity"
         volumeMounts:
           - name: validators
             mountPath: /autonity/validators
