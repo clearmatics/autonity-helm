@@ -24,7 +24,6 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 1. configmap `validators` contain:
    1. `0.address` - address
    1. `0.pub_key` - public key
-   1. `0.enodeid` - enodeID
 
 ## Prerequisites
 
