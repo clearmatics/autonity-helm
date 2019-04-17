@@ -26,8 +26,8 @@ spec:
         volumeMounts:
         - name: blockchain
           mountPath: /autonity/blockchain
-        - name: keystore
-          mountPath: /autonity/keystore
+        - name: keys
+          mountPath: /autonity/keys
         - name: cm-genesis
           mountPath: /autonity/cm-genesis
         - name: sec-account-pwd
@@ -45,12 +45,12 @@ spec:
         volumeMounts:
         - name: blockchain
           mountPath: /autonity/blockchain
-        - name: keystore
-          mountPath: /autonity/keystore
+        - name: keys
+          mountPath: /autonity/keys
       volumes:
         - name: blockchain
           emptyDir: {}
-        - name: keystore
+        - name: keys
           emptyDir:
             medium: Memory
             sizeLimit: "1M"
@@ -72,4 +72,4 @@ spec:
 # /autonity/sec-account-pwd/account.pwd
 # /autonity/cm-genesis/genesis.json
 # /autonity/blockchain/
-# /autonity/keystore/
+# /autonity/keys/

@@ -1,7 +1,7 @@
 ---
 imageAutonity:
   repository: clearmatics/autonity
-  tag: latest
+  tag: k8s-latest
 
 imageAutonity_init:
   repository: clearmatics/autonity-init
