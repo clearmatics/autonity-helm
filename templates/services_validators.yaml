@@ -1,0 +1,23 @@
+{{- $namespace := .Release.Namespace -}}
+
+{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: validator-{{ $i }}
+  namespace: {{ $namespace }}
+spec:
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      name: rpc
+      port: 8545
+      targetPort: 8545
+    - protocol: TCP
+      name: p2p
+      port: 30303
+      targetPort:  30303
+  selector:
+    app: validator-{{ $i }}
+{{- end}}
