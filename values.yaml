@@ -1,11 +1,11 @@
 ---
 imageAutonity:
   repository: clearmatics/autonity
-  tag: k8s-latest
+  tag: k8s-0.0.1
 
 imageAutonity_init:
   repository: clearmatics/autonity-init
-  tag: v0.0.1
+  tag: v0.0.4
 
 image_ibft_keys_generator:
   repository: clearmatics/ibft-keys-generator
@@ -17,6 +17,6 @@ image_ibft_genesis_configurator:
 
 # Number of validators and observers
 validators: 4
-observers: 1
+observers: 0
 
 chainid: 2019
