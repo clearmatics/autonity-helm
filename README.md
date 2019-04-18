@@ -18,10 +18,9 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 ## Data storages
 
 1. secret `account-pwd` contain generated account password.
-1. secret `validators` contain:   
+1. secret `validators` or `observers` contain:   
    1. `0.private_key` - private key for account
-   1. node.key
-1. configmap `validators` contain:
+1. configmap `validators` or `observers` contain:
    1. `0.address` - address
    1. `0.pub_key` - public key
 

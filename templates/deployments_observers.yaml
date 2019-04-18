@@ -2,12 +2,12 @@
 {{- $imageAutonity_init := .Values.imageAutonity_init -}}
 {{- $namespace := .Release.Namespace -}}
 
-{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
+{{ range $i, $e := until (atoi (printf "%d" (int64 .Values.observers))) }}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: validator-{{ $i }}
+  name: observer-{{ $i }}
   namespace: {{ $namespace }}
 spec:
   strategy:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: validator-{{ $i }}
+        app: observer-{{ $i }}
     spec:
       initContainers:
       - name: init
@@ -63,9 +63,6 @@ spec:
           - "--wsorigins"
           - "*"
           - "--metrics"
-          - "--mine"
-          - "--minerthreads"
-          - "1"
           - "--debug"
           - "--verbosity"
           - "4"
@@ -91,7 +88,7 @@ spec:
             secretName: account-pwd
         - name: sec-peers
           secret:
-            secretName: validators
+            secretName: observers
             items:
               - key: {{ $i }}.private_key
                 path: private_key
