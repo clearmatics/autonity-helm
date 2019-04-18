@@ -22,7 +22,7 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
    ```
 1. Deploy it
    ```bash
-   helm install ./autonity-helm
+   helm install -n autonity ./autonity-helm
    ```
 
 ## Introduction
@@ -30,9 +30,11 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 This chart deploys a **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager. This chart is comprised of 4 components:
 
 1. *initial jobs* that implement bootstrapping algorithm
-1. *validators*: nodes that implement [IBFT consensus algorithms](https://docs.autonity.io/IBFT/index.html) [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
-1. *observer*: node that connected with another validators by p2p and expose JSON-RPC and WebSocket interface [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
-1. *ethstats*: [Ethereum Network Stats](https://github.com/cubedro/eth-netstats)
+   1. [init-job01-ibft-keys-generator](https://github.com/clearmatics/ibft-keys-generator) will create keys set
+   1. [init-job02-ibft-genesis-configurator](https://github.com/clearmatics/ibft-genesis-configurator) will configure genesis.json for autonity network initialisation
+1. [autonity init](https://github.com/clearmatics/autonity-init) container for each autonity pod that download keys, configs and prepare chain data
+1. pods *validator-X*: nodes that implement [IBFT consensus algorithms](https://docs.autonity.io/IBFT/index.html) [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
+1. pods *observer-Y*: node that connected with another validators by p2p and expose JSON-RPC and WebSocket interface [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
 
 ## Data storages
 
@@ -48,13 +50,19 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 * Kubernetes 1.10
 * Helm 2.13
 
+## Configure
 
-## Install
-
-```console
-$ git clone https://github.com/clearmatics/autonity-helm.git
-$ helm install ./autonity-helm
-```
+- You can change number of validators or observers using helm cli-options like this:
+   ```bash
+   helm install -n autonity ./autonity-helm --set validators=6,observers=2
+   ```
+- Also you can change any variables in this file [./values.yaml](values.yaml) before installation
+- Configration of main autonity network options is available in this template [./templates/configmap_genesis_template.yaml](templates/configmap_genesis_template.yaml)   
+- all other options in `genesis.json` like: `validators`, `alloc`, `nodeWhiteList` will be generated automaticaly based on validators and observers list.   
+You can get result of genegating any time after deploy using:   
+   ```bash
+   kubectl -n {{ .Release.Namespace }} get configmap genesis -o yaml --export=true   
+   ```
 
 ## Connect to autonity network
 ```bash
@@ -64,4 +72,9 @@ kubectl port-forward svc/validator-0 8545:8545
 # Example  JSON-RPC request
 curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}' http://localhost:8545
 
+```
+
+## Delete
+```bash
+helm delete autonity --purge
 ```
