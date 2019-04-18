@@ -61,7 +61,7 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 - all other options in `genesis.json` like: `validators`, `alloc`, `nodeWhiteList` will be generated automaticaly based on validators and observers list.   
 You can get result of genegating any time after deploy using:   
    ```bash
-   kubectl -n {{ .Release.Namespace }} get configmap genesis -o yaml --export=true   
+   kubectl get configmap genesis -o yaml --export=true   
    ```
 
 ## Connect to autonity network
