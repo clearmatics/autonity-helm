@@ -26,7 +26,7 @@ This chart deploys a **private** [Autonity](https://www.autonity.io/) network on
 
 ## Prerequisites
 
-* Kubernetes 1.11
+* Kubernetes 1.10
 * Helm 2.13
 
 
