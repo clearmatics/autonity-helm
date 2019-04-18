@@ -37,3 +37,12 @@ $ git clone https://github.com/clearmatics/autonity-helm.git
 $ helm install ./autonity-helm
 ```
 
+## Connect to autonity network
+```bash
+# Forward JSON-RPC validator-0 to localhost
+kubectl port-forward svc/validator-0 8545:8545
+
+# Example  JSON-RPC request
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}' http://localhost:8545
+
+```
