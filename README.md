@@ -6,6 +6,25 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 
 [Autonity Documentation](https://docs.autonity.io)
 
+## Quick start
+1. Install [Kubernetes cluster](http://kubernetes.io). You can do it using one of this ways:
+   - Install minimal local kubernetes cluster out of box [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or:
+   - Install [Amazon EKS](https://eksworkshop.com/prerequisites/self_paced/) or:
+   - Install [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/docs/quickstart)
+1. Install packet manager for kubernetes using this [Helm installation guide](https://helm.sh/docs/using_helm/#installing-helm)
+1. Configure helm to your cluster
+   ```bash
+   helm init
+   ```
+1. Download `autonity-helm` chart:
+   ```bash
+   git clone https://github.com/clearmatics/autonity-helm.git
+   ```
+1. Deploy it
+   ```bash
+   helm install ./autonity-helm
+   ```
+
 ## Introduction
 
 This chart deploys a **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager. This chart is comprised of 4 components:
