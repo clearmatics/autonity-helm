@@ -1,12 +1,12 @@
 ---
 
 global:
-  autonity-net:
+  autonity:
     enabled: true
   ethstats:
     enabled: false
 
-autonity-net:
+autonity:
   # Number of validators and observers
   validators: 4
   observers: 1

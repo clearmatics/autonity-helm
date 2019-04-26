@@ -62,7 +62,7 @@ It will be removed if you delete a pod, or move it to another node. In that case
 
 - You can change number of validators or observers using helm cli-options like this:
    ```bash
-   helm install -n autonity ./autonity-helm --set autonity-net.validators=6,autonity-net.observers=2
+   helm install -n autonity ./autonity-helm --set autonity.validators=6,autonity.observers=2
    ```
 - Also you can change any variables in this file [./values.yaml](values.yaml) before installation
 - Configuration of main autonity network options is available in this template [./templates/configmap_genesis_template.yaml](templates/configmap_genesis_template.yaml)   

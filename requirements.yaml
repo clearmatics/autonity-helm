@@ -1,7 +1,7 @@
 dependencies:
-  - name: autonity-net
+  - name: autonity
     version: 0.0.8
-    condition: global.autonity-net.enabled
+    condition: global.autonity.enabled
   - name: ethstats
     version: 0.0.1
     condition: global.ethstats.enabled
