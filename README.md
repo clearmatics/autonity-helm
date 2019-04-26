@@ -46,7 +46,7 @@ This chart is comprised of 4 components:
 1. pods `observer-Y`: node that connected with another validators by p2p and expose JSON-RPC and WebSocket interface 
    [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
 
-## Data storages
+## Data storage
 
 1. secret `account-pwd` contain generated account password.
 1. secret `validators` or `observers` contain:   
@@ -55,7 +55,7 @@ This chart is comprised of 4 components:
    1. `0.address` - address
    1. `0.pub_key` - public key
 1. Kubernetes [EmptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) for local blockchain of `validators` and `observers`. 
-It will removed if you delete pod, or move it to another node. In that case pod should be load keys from kubernetes secrets, and download new blockchain from another peers automaticaly.
+It will be removed if you delete a pod, or move it to another node. In that case the pod should load keys from kubernetes secrets, and download new blockchain from other peers automatically.
 
 
 ## Configure
@@ -65,9 +65,9 @@ It will removed if you delete pod, or move it to another node. In that case pod 
    helm install -n autonity ./autonity-helm --set validators=6,observers=2
    ```
 - Also you can change any variables in this file [./values.yaml](values.yaml) before installation
-- Configration of main autonity network options is available in this template [./templates/configmap_genesis_template.yaml](templates/configmap_genesis_template.yaml)   
+- Configuration of main autonity network options is available in this template [./templates/configmap_genesis_template.yaml](templates/configmap_genesis_template.yaml)   
 - all other options in `genesis.json` like: `validators`, `alloc`, `nodeWhiteList` will be generated automaticaly based on validators and observers list.   
-You can get result of genegating any time after deploy using:   
+You can get result of generating any time after deploy using:   
    ```bash
    kubectl get configmap genesis -o yaml --export=true   
    ```
