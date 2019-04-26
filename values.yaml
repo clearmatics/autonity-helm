@@ -5,6 +5,7 @@ global:
     enabled: true
   ethstats:
     enabled: false
+    webSocketSecret: my-secret-for-connecting-to-ethstats
 
 autonity:
   # Number of validators and observers

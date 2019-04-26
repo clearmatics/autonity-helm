@@ -1,1 +1,5 @@
 ---
+
+image:
+  repository: ethereumex/eth-stats-dashboard
+  tag: v0.0.1

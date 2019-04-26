@@ -1,37 +1,37 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  annotations:
-    sidecar.istio.io/inject: "false"
-  name: jumpnet
-  namespace: {{ .Release.Namespace }}
-spec:
-  containers:
-  - name: jumpnet
-    image: ubuntu:latest
-    command:
-      - /bin/sh
-      - "-c"
-      - "sleep 60m"
-    imagePullPolicy: IfNotPresent
-    volumeMounts:
-      - name: validators
-        mountPath: /autonity/validators
-      - name: observers
-        mountPath: /autonity/observers
-      - name: genesis-template
-        mountPath: /autonity
-  restartPolicy: Always
-  volumes:
-    - name: validators
-      configMap:
-        name: validators
-    - name: observers
-      configMap:
-        name: observers
-    - name: genesis-template
-      configMap:
-        name: genesis-template
-        items:
-          - key: genesis.json
-            path: genesis-template.json
+#apiVersion: v1
+#kind: Pod
+#metadata:
+#  annotations:
+#    sidecar.istio.io/inject: "false"
+#  name: jumpnet
+#  namespace: {{ .Release.Namespace }}
+#spec:
+#  containers:
+#  - name: jumpnet
+#    image: ubuntu:latest
+#    command:
+#      - /bin/sh
+#      - "-c"
+#      - "sleep 60m"
+#    imagePullPolicy: IfNotPresent
+#    volumeMounts:
+#      - name: validators
+#        mountPath: /autonity/validators
+#      - name: observers
+#        mountPath: /autonity/observers
+#      - name: genesis-template
+#        mountPath: /autonity
+#  restartPolicy: Always
+#  volumes:
+#    - name: validators
+#      configMap:
+#        name: validators
+#    - name: observers
+#      configMap:
+#        name: observers
+#    - name: genesis-template
+#      configMap:
+#        name: genesis-template
+#        items:
+#          - key: genesis.json
+#            path: genesis-template.json
