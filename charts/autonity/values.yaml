@@ -16,6 +16,10 @@ image_ibft_genesis_configurator:
   repository: clearmatics/ibft-genesis-configurator
   tag: v0.0.4
 
+image_prometheus_exporter:
+  repository: statusteam/geth_exporter
+  tag: latest
+
 # Number of validators and observers
 validators: 4
 observers: 1
@@ -24,4 +28,6 @@ chainid: 2019
 
 global:
   ethstats:
+    enabled: false
+  prometheus:
     enabled: false
