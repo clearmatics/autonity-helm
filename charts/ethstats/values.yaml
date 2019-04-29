@@ -7,4 +7,4 @@ image:
 global:
   ethstats:
     enabled: false
-    webSocketSecret: secret123
+    webSocketSecret: 3b7Lp5BDdtpNQyFwSjbtMHVU5Xuzo4
