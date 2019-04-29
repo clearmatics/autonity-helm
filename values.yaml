@@ -15,3 +15,8 @@ autonity:
   validators: 4
   observers: 1
   chainid: 2019
+
+prometheus:
+  server:
+    persistentVolume:
+      enabled: false
