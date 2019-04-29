@@ -1,14 +1,14 @@
-## Autonity helm chart
+## Autonity-platform helm chart
 
 [![Join the chat at https://gitter.im/clearmatics/autonity](https://badges.gitter.im/clearmatics/autonity.svg)](https://gitter.im/clearmatics/autonity?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 ## Introduction
 
-This chart deploys a **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
-cluster using the [Helm](https://helm.sh) package manager.   
-Autonity is a generalization of the Ethereum protocol based on a fork of go-ethereum.   
-[Autonity Documentation](https://docs.autonity.io)
+It is umbrella chart `autonity-platform` that include main `autonity` subchart for deploy a **private** [Autonity](https://www.autonity.io/) network onto a [Kubernetes](http://kubernetes.io) 
+cluster using the [Helm](https://helm.sh) package manager. Also `autonity-platform` can deploy additional charts and connect services inside as one infrastructure.
+
+Autonity is a generalization of the Ethereum protocol based on a fork of go-ethereum. [Autonity Documentation](https://docs.autonity.io)
 
 ## Quick start
 1. Install [Kubernetes cluster](http://kubernetes.io). You can do it using one of this ways:
@@ -33,44 +33,22 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 * Kubernetes 1.10
 * Helm 2.13
 
-## Kubernetes objects
-This chart is comprised of 4 components:   
-1. `initial jobs` that implement bootstrapping algorithm and run once as a helm hook `post-install`
-   1. [init-job01-ibft-keys-generator](https://github.com/clearmatics/ibft-keys-generator) will create keys set
-   1. [init-job02-ibft-genesis-configurator](https://github.com/clearmatics/ibft-genesis-configurator) will configure `genesis.json` 
-   for autonity network initialisation
-1. [autonity init](https://github.com/clearmatics/autonity-init) container for each autonity pod that download keys, 
-   configs and prepare chain data
-1. pods `validator-X`: nodes that implement [IBFT consensus algorithms](https://docs.autonity.io/IBFT/index.html) 
-   [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
-1. pods `observer-Y`: node that connected with another validators by p2p and expose JSON-RPC and WebSocket interface 
-   [Source](https://github.com/clearmatics/autonity/blob/master/Dockerfile)
+## Subcharts
 
-## Data storage
-
-1. secret `account-pwd` contain generated account password.
-1. secret `validators` or `observers` contain:   
-   1. `0.private_key` - private key for account
-1. configmap `validators` or `observers` contain:
-   1. `0.address` - address
-   1. `0.pub_key` - public key
-1. Kubernetes [EmptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) for local blockchain of `validators` and `observers`. 
-It will be removed if you delete a pod, or move it to another node. In that case the pod should load keys from kubernetes secrets, and download new blockchain from other peers automatically.
-
+* [Autonity](charts/autonity/README.md) - **private** Autonity network with set of validators and observers (Enabled by default)
+* [Ethstats](charts/ethstats/README.md) - Web-dashboard for monitoring Autonity network (Optional)
 
 ## Configure
 
 - You can change number of validators or observers using helm cli-options like this:
    ```bash
-   helm install -n autonity ./autonity-helm --set validators=6,observers=2
+   helm install -n autonity ./autonity-helm --set autonity.validators=6,autonity.observers=2
+   ```
+- You can enable optional subcharts like:
+   ```bash
+   helm install -n autonity ./autonity-helm --set global.ethstats.enabled=true
    ```
 - Also you can change any variables in this file [./values.yaml](values.yaml) before installation
-- Configuration of main autonity network options is available in this template [./templates/configmap_genesis_template.yaml](templates/configmap_genesis_template.yaml)   
-- all other options in `genesis.json` like: `validators`, `alloc`, `nodeWhiteList` will be generated automaticaly based on validators and observers list.   
-You can get result of generating any time after deploy using:   
-   ```bash
-   kubectl get configmap genesis -o yaml --export=true   
-   ```
 
 ## Connect to autonity network
 ```bash
