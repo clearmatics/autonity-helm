@@ -1,1 +1,4 @@
 === Prometheus ===
+
+# Forward prometheus node-exporter of validator-0
+kubectl -n {{ .Release.Namespace }} port-forward svc/validator-0 9200:9200

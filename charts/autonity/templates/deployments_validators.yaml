@@ -1,7 +1,10 @@
 {{- $imageAutonity := .Values.imageAutonity -}}
 {{- $imageAutonity_init := .Values.imageAutonity_init -}}
+{{- $imagePrometheusExporter := .Values.image_prometheus_exporter -}}
 {{- $namespace := .Release.Namespace -}}
+
 {{- $ethstatsEnabled :=  .Values.global.ethstats.enabled -}}
+{{- $prometheusEnabled :=  .Values.global.prometheus.enabled -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.validators))) }}
 ---
@@ -87,6 +90,17 @@ spec:
           mountPath: /autonity/keys
         - name: sec-peers
           mountPath: /autonity/sec-peers
+{{ if $prometheusEnabled }}
+      - name: prometheus-exporter
+        image: {{ $imagePrometheusExporter.repository }}:{{ $imagePrometheusExporter.tag }}
+        ports:
+        - containerPort: 9200
+          name: metrics
+        command: ['geth_exporter', '-ipc', '/autonity/blockchain/autonity.ipc']
+        volumeMounts:
+        - name: blockchain
+          mountPath: /autonity/blockchain
+{{ end }}
       volumes:
         - name: blockchain
           emptyDir: {}
