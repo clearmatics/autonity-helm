@@ -1,8 +1,8 @@
 dependencies:
   - name: autonity
-    version: 0.0.8
+    version: 0.1.0
     condition: global.autonity.enabled
   - name: ethstats
-    version: 0.0.1
+    version: 0.1.0
     condition: global.ethstats.enabled
 
