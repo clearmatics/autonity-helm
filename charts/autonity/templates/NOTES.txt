@@ -17,10 +17,3 @@ kubectl -n {{ .Release.Namespace }} port-forward svc/validator-0 8545:8545
 
 # Example  JSON-RPC request
 curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}' http://localhost:8545
-
-{{ if .Values.global.ethstats.enabled }}
-==== Ethstats ====
-
-# Forward ethstats dashboard to localhost http://localhost:8080
-kubectl -n {{ .Release.Namespace }} port-forward svc/ethstats 8080:80
-{{ end }}

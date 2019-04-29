@@ -1,6 +1,7 @@
 {{- $imageAutonity := .Values.imageAutonity -}}
 {{- $imageAutonity_init := .Values.imageAutonity_init -}}
 {{- $namespace := .Release.Namespace -}}
+{{- $ethstatsEnabled :=  .Values.global.ethstats.enabled -}}
 
 {{ range $i, $e := until (atoi (printf "%d" (int64 .Values.observers))) }}
 ---
@@ -66,6 +67,16 @@ spec:
           - "--debug"
           - "--verbosity"
           - "4"
+{{ if $ethstatsEnabled }}
+          - "--ethstats"
+          - "observer-{{ $i }}:$(ETHSTATS_SECRET)@ethstats.{{ $namespace }}"
+        env:
+        - name: ETHSTATS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ethstats
+              key: WS_SECRET
+{{ end }}
         volumeMounts:
         - name: blockchain
           mountPath: /autonity/blockchain

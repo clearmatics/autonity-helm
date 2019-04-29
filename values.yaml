@@ -11,8 +11,4 @@ autonity:
   # Number of validators and observers
   validators: 4
   observers: 1
-
   chainid: 2019
-
-ethstats:
-  enabled: false

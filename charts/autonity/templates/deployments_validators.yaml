@@ -72,13 +72,13 @@ spec:
           - "4"
 {{ if $ethstatsEnabled }}
           - "--ethstats"
-          - "validator-{{ $i }}:secret123@ethstats.{{ $namespace }}"
+          - "validator-{{ $i }}:$(ETHSTATS_SECRET)@ethstats.{{ $namespace }}"
         env:
         - name: ETHSTATS_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: ethstats
-            key: WS_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ethstats
+              key: WS_SECRET
 {{ end }}
         volumeMounts:
         - name: blockchain
