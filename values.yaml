@@ -15,3 +15,17 @@ autonity:
   validators: 4
   observers: 1
   chainid: 2019
+
+prometheus:
+  server:
+    persistentVolume:
+      enabled: false
+    configMapOverrideName: 'prometheus-server-config'
+  kubeStateMetrics:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  pushgateway:
+    enabled: false
+  alertmanager:
+    enabled: false

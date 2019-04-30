@@ -20,13 +20,15 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
    ```bash
    helm init
    ```
-1. Download `autonity-helm` chart:
+1. Download `autonity-helm` chart and dependencies:
    ```bash
    git clone https://github.com/clearmatics/autonity-helm.git
+   cd autonity-helm
+   helm dependency update
    ```
 1. Deploy it
    ```bash
-   helm install -n autonity ./autonity-helm
+   helm install -n autonity ./
    ```
 ## Prerequisites
 
@@ -35,19 +37,19 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 
 ## Subcharts
 
-* [Autonity](charts/autonity) - **private** Autonity network with set of validators and observers (Enabled by default)
-* [Ethstats](charts/ethstats) - Web-dashboard for monitoring Autonity network (Optional)
-* [Prometheus](charts/prometheus) - Metrics system
+* [Autonity](helm-charts/autonity) - **private** Autonity network with set of validators and observers (Enabled by default)
+* [Ethstats](helm-charts/ethstats) - Web-dashboard for monitoring Autonity network (Optional)
+* [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus) - Metrics system
 
 ## Configure
 
 - You can change number of validators or observers using helm cli-options like this:
    ```bash
-   helm install -n autonity ./autonity-helm --set autonity.validators=6,autonity.observers=2
+   helm install -n autonity ./ --set autonity.validators=6,autonity.observers=2
    ```
 - You can enable optional subcharts like:
    ```bash
-   helm install -n autonity ./autonity-helm --set global.ethstats.enabled=true
+   helm install -n autonity ./ --set global.ethstats.enabled=true
    ```
 - Also you can change any variables in this file [./values.yaml](values.yaml) before installation
 
