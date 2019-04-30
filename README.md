@@ -37,9 +37,9 @@ Autonity is a generalization of the Ethereum protocol based on a fork of go-ethe
 
 ## Subcharts
 
-* [Autonity](charts/autonity) - **private** Autonity network with set of validators and observers (Enabled by default)
-* [Ethstats](charts/ethstats) - Web-dashboard for monitoring Autonity network (Optional)
-* [Prometheus](charts/prometheus) - Metrics system
+* [Autonity](helm-charts/autonity) - **private** Autonity network with set of validators and observers (Enabled by default)
+* [Ethstats](helm-charts/ethstats) - Web-dashboard for monitoring Autonity network (Optional)
+* [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus) - Metrics system
 
 ## Configure
 

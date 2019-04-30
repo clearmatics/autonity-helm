@@ -20,3 +20,12 @@ prometheus:
   server:
     persistentVolume:
       enabled: false
+    configMapOverrideName: 'prometheus-server-config'
+  kubeStateMetrics:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  pushgateway:
+    enabled: false
+  alertmanager:
+    enabled: false
