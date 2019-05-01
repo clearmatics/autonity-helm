@@ -8,7 +8,8 @@ global:
     webSocketSecret: 3b7Lp5BDdtpNQyFwSjbtMHVU5Xuzo4
   prometheus:
     enabled: false
-
+  grafana:
+    enabled: false
 
 autonity:
   # Number of validators and observers
@@ -18,6 +19,7 @@ autonity:
 
 prometheus:
   server:
+    fullnameOverride: 'autonity-prometheus-server'
     persistentVolume:
       enabled: false
     configMapOverrideName: 'prometheus-server-config'
@@ -29,3 +31,31 @@ prometheus:
     enabled: false
   alertmanager:
     enabled: false
+
+grafana:
+  adminUser: admin
+  service:
+    port: 80
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://autonity-prometheus-server:80
+        access: proxy
+        isDefault: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'autonity'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/autonity
+  dashboardsConfigMaps:
+    autonity: "grafana-dashboard-autonity"
