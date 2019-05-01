@@ -45,3 +45,17 @@ grafana:
         url: http://autonity-prometheus-server:80
         access: proxy
         isDefault: true
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'autonity'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/autonity
+  dashboardsConfigMaps:
+    autonity: "grafana-dashboard-autonity"
