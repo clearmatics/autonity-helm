@@ -19,6 +19,7 @@ autonity:
 
 prometheus:
   server:
+    fullnameOverride: 'autonity-prometheus-server'
     persistentVolume:
       enabled: false
     configMapOverrideName: 'prometheus-server-config'
@@ -32,8 +33,15 @@ prometheus:
     enabled: false
 
 grafana:
-  persistence:
-    enabled: false
   adminUser: admin
   service:
     port: 80
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://autonity-prometheus-server:80
+        access: proxy
+        isDefault: true

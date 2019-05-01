@@ -46,9 +46,5 @@ Get the Grafana URL to visit by running these commands in the same shell:
 
 3. Login with the password from step 1 and the username: {{ .Values.grafana.adminUser }}
 
-4. Connect Prometheus datasource
-
-http://{{ .Release.Name }}-prometheus-server:80
-
-5. import autonity dashboard
+4. import autonity dashboard
 {{ end }}
