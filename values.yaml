@@ -8,7 +8,8 @@ global:
     webSocketSecret: 3b7Lp5BDdtpNQyFwSjbtMHVU5Xuzo4
   prometheus:
     enabled: false
-
+  grafana:
+    enabled: false
 
 autonity:
   # Number of validators and observers
@@ -29,3 +30,10 @@ prometheus:
     enabled: false
   alertmanager:
     enabled: false
+
+grafana:
+  persistence:
+    enabled: false
+  adminUser: admin
+  service:
+    port: 80
