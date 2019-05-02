@@ -50,6 +50,8 @@ spec:
           - "/autonity/keys/keystore"
           - "--nodekey"
           - "/autonity/sec-peers/private_key"
+          - "--gcmode"
+          - "archive"
           - "--syncmode"
           - "full"
           - "--cache"
