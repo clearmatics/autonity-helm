@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1556728802470,
+  "id": 4,
+  "iteration": 1556884101347,
   "links": [
     {
       "icon": "info",
@@ -115,11 +115,72 @@
       }
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0.9
+              ],
+              "type": "lt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          },
+          {
+            "evaluator": {
+              "params": [],
+              "type": "no_value"
+            },
+            "operator": {
+              "type": "or"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "last"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "30m",
+        "frequency": "15m",
+        "handler": 1,
+        "message": "Frequency of generating new blocks below than 0.9 blocks/s",
+        "name": "Low minings speed",
+        "noDataState": "alerting",
+        "notifications": [
+          {
+            "uid": "oE70ozmWz"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
+      "description": "https://github.com/clearmatics/autonity/wiki/Metrics-and-Monitoring#consensus-engine\n",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -149,7 +210,7 @@
           "targetBlank": true,
           "title": "Description",
           "type": "absolute",
-          "url": "https://github.com/clearmatics/autonity/wiki/Test-networks"
+          "url": "https://github.com/clearmatics/autonity/wiki/Metrics-and-Monitoring"
         }
       ],
       "maxPerRow": 2,
@@ -166,27 +227,46 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(geth_p2p_inboundTraffic_overall{kubernetes_name=\"$validator\"}[1m]))",
+          "expr": "increase(geth_consensus_istanbul_core_consensus_overall{kubernetes_name=\"$validator\"}[5m])/300",
           "format": "time_series",
+          "instant": false,
           "interval": "5s",
           "intervalFactor": 1,
-          "legendFormat": "inbound",
-          "refId": "A"
+          "legendFormat": "avg 5 min",
+          "refId": "B"
         },
         {
-          "expr": "sum(irate(geth_p2p_outboundTraffic_overall{kubernetes_name=\"$validator\"}[1m]))",
+          "expr": "increase(geth_consensus_istanbul_core_consensus_overall{kubernetes_name=\"$validator\"}[15m])/900",
           "format": "time_series",
-          "interval": "5s",
+          "instant": false,
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "outbound",
-          "refId": "B"
+          "legendFormat": "avg 15 min",
+          "refId": "C"
+        },
+        {
+          "expr": "increase(geth_consensus_istanbul_core_consensus_overall{kubernetes_name=\"validator-0\"}[15m])/900",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "validator-0 avg 15 min",
+          "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "lt",
+          "value": 0.9
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "p2p traffic $validator",
+      "title": "New finalised blocks per second $validator",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -203,8 +283,8 @@
       "yaxes": [
         {
           "decimals": null,
-          "format": "Bps",
-          "label": "",
+          "format": "locale",
+          "label": "Blocks per second",
           "logBase": 1,
           "max": null,
           "min": "0",
@@ -225,93 +305,171 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "fill": 1,
+      "columns": [],
+      "description": "geth_consensus_istanbul_core_round\n\nhttps://github.com/clearmatics/autonity/wiki/Metrics-and-Monitoring",
+      "fontSize": "100%",
       "gridPos": {
-        "h": 9,
+        "h": 6,
         "w": 12,
         "x": 12,
         "y": 6
       },
-      "id": 4,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": false
+      "id": 10,
+      "interval": "5m",
+      "links": [
+        {
+          "type": "absolute"
+        }
+      ],
+      "pageSize": 5,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
       },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      "styles": [
+        {
+          "alias": "Node",
+          "colorMode": null,
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "mappingType": 2,
+          "pattern": "kubernetes_node",
+          "preserveFormat": false,
+          "type": "string",
+          "valueMaps": [
+            {
+              "text": "",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "alias": "Pod name",
+          "colorMode": "cell",
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "#5794F2",
+            "#5794F2"
+          ],
+          "decimals": 2,
+          "link": false,
+          "mappingType": 2,
+          "pattern": "kubernetes_name",
+          "rangeMaps": [
+            {
+              "from": "",
+              "text": "",
+              "to": ""
+            }
+          ],
+          "sanitize": false,
+          "thresholds": [
+            ""
+          ],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "__name__",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "job",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "instance",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "kubernetes_namespace",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Time",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        }
+      ],
       "targets": [
         {
-          "expr": "irate(geth_chain_write_overall{kubernetes_name=\"$validator\"}[1m])",
-          "format": "time_series",
-          "interval": "20s",
+          "expr": "geth_consensus_istanbul_core_round_overall",
+          "format": "table",
+          "instant": true,
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "chain_write_overall",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": [],
       "timeFrom": null,
-      "timeRegions": [],
       "timeShift": null,
-      "title": "chain_write_overall $validator",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Istanbul round",
+      "transform": "table",
+      "type": "table"
     }
   ],
+  "refresh": false,
   "schemaVersion": 18,
   "style": "dark",
   "tags": [],
@@ -321,8 +479,8 @@
         "allValue": "ALL",
         "current": {
           "tags": [],
-          "text": "validator-1",
-          "value": "validator-1"
+          "text": "validator-0",
+          "value": "validator-0"
         },
         "datasource": "Prometheus",
         "definition": "",
@@ -346,8 +504,8 @@
       {
         "allValue": "ALL",
         "current": {
-          "text": "geth_chain_execution_avgRate01Min",
-          "value": "geth_chain_execution_avgRate01Min"
+          "text": "geth_chain_validation_overall",
+          "value": "geth_chain_validation_overall"
         },
         "datasource": "Prometheus",
         "definition": "",
@@ -401,6 +559,6 @@
   },
   "timezone": "",
   "title": "Autonity",
-  "uid": "qB5LUF3mz",
+  "uid": "qB5LUF3mz45",
   "version": 3
 }
