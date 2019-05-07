@@ -10,6 +10,8 @@ global:
     enabled: false
   grafana:
     enabled: false
+  telepresence:
+    enabled: false
 
 autonity:
   # Number of validators and observers
