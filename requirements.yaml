@@ -1,7 +1,7 @@
 dependencies:
   - name: autonity
     repository: "file://helm-charts/autonity"
-    version: 0.2.2
+    version: 0.2.6
     condition: global.autonity.enabled
   - name: ethstats
     repository: "file://helm-charts/ethstats"

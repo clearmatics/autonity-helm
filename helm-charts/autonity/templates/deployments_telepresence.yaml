@@ -4,11 +4,20 @@ kind: Deployment
 metadata:
   name: telepresence
   namespace: {{ .Release.Namespace }}
+  labels:
+    app: telepresence
 spec:
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: telepresence
   template:
+    metadata:
+      labels:
+        app: telepresence
     spec:
+      containers:
       - name: telepresence
         image: ubuntu:latest
         command:
@@ -16,10 +25,10 @@ spec:
           - "-c"
           - "sleep 60m"
         volumeMounts:
-        - name: cm-validators
-          mountPath: /autonity/cm-validators
-        - name: sec-validators
-          mountPath: /autonity/sec-validators
+          - name: cm-validators
+            mountPath: /autonity/cm-validators
+          - name: sec-validators
+            mountPath: /autonity/sec-validators
       volumes:
         - name: cm-validators
           configMap:
