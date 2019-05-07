@@ -1,3 +1,4 @@
+{{ if .Values.global.telepresence.enabled }}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -36,3 +37,4 @@ spec:
         - name: sec-validators
           secret:
             secretName: validators
+{{ end }}

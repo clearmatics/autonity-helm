@@ -31,3 +31,5 @@ global:
     enabled: false
   prometheus:
     enabled: false
+  telepresence:
+    enabled: false
