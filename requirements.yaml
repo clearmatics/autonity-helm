@@ -7,6 +7,10 @@ dependencies:
     repository: "file://helm-charts/ethstats"
     version: 0.1.0
     condition: global.ethstats.enabled
+  - name: validator-dapp
+    repository: "file://helm-charts/validator-dapp"
+    version: 0.0.1
+    condition: global.validator_dapp.enabled
   - name: prometheus
     repository: "@stable"
     version: 8.10.0
